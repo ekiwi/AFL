@@ -3101,6 +3101,11 @@ static u8* describe_op(u8 hnb) {
   }
 
   if (hnb == 2) strcat(ret, ",+cov");
+  
+  // append unix time
+  const u64 unix_time = get_cur_time_us();
+  sprintf(ret + strlen(ret), ",%lld", unix_time);
+  
 
   return ret;
 
