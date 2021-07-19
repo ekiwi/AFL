@@ -3035,7 +3035,10 @@ static void pivot_inputs(void) {
       u8* use_name = strstr(rsl, ",orig:");
 
       if (use_name) use_name += 6; else use_name = rsl;
-      nfn = alloc_printf("%s/queue/id:%06u,orig:%s", out_dir, id, use_name);
+
+      //TODO: Added these to the filename
+      const u64 unix_time = get_cur_time();
+      nfn = alloc_printf("%s/queue/id:%06u,orig:%s,%lld", out_dir, id, use_name, unix_time);
 
 #else
 
@@ -3103,7 +3106,7 @@ static u8* describe_op(u8 hnb) {
   if (hnb == 2) strcat(ret, ",+cov");
   
   // append unix time
-  const u64 unix_time = get_cur_time_us();
+  const u64 unix_time = get_cur_time();
   sprintf(ret + strlen(ret), ",%lld", unix_time);
   
 
